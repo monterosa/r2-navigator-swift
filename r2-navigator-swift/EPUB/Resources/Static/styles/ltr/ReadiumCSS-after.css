@@ -1,4 +1,4 @@
-/* Readium CSS 
+/* Readium CSS
    Config module
 
    A file allowing implementers to customize flags for reading modes,
@@ -39,7 +39,7 @@
 
 /* Direction i.e. ltr and rtl */
 
-/* Readium CSS 
+/* Readium CSS
    Pagination module
 
    A set of styles to paginate ePublications
@@ -48,9 +48,9 @@
 
 /* Config */
 
-/* Columns are responsive by default, even if column-width is set in pixels, 
+/* Columns are responsive by default, even if column-width is set in pixels,
    which means two-page spread will switch to single page depending on current font-size.
-   If you want more control, I’m afraid you’ll have to update colWidth/colGap dynamically, 
+   If you want more control, I’m afraid you’ll have to update colWidth/colGap dynamically,
    which is how a significant amount of RS do at the moment. */
 
 /* Default for smartphone portrait (small screens) */
@@ -79,7 +79,7 @@
 }
 
 /* :root selector has same specificity as a class i.e. 0010
-   We might have to change that to html / context 
+   We might have to change that to html / context
    -> https://css-tricks.com/almanac/selectors/r/root/ */
 
 :root {
@@ -187,7 +187,7 @@ body {
   }
 }
 
-/* Readium CSS 
+/* Readium CSS
    Scroll module
 
    A set of styles to scroll ePublications
@@ -207,13 +207,13 @@ body {
   max-height: none !important;
   /* Reset html size so that the user can scroll */
   min-width: 0 !important;
-  min-height: 0 !important;  
+  min-height: 0 !important;
 }
 
 /* Make sure line-length is limited in all configs */
 
 :root[style*="readium-scroll-on"] body {
-  --RS__maxLineLength: 40rem !important; 
+  --RS__maxLineLength: 40rem !important;
 
   margin-top: var(--RS__pageGutter) !important;
   margin-bottom: var(--RS__pageGutter) !important;
@@ -225,7 +225,7 @@ body {
 
 /* Do we add a top/bottom margin for body in vertical scroll or not? */
 
-/* Readium CSS 
+/* Readium CSS
    Default highlights
 
    A stylesheet for user highlights
@@ -257,7 +257,7 @@ body {
   background-color: yellow !important;
 }
 
-/* Readium CSS 
+/* Readium CSS
    Night mode
 
    A preset theme for night mode
@@ -330,7 +330,7 @@ body {
   filter: brightness(80%) invert(100%);
 }
 
-/* Readium CSS 
+/* Readium CSS
    Sepia mode
 
    A preset theme for sepia mode
@@ -387,6 +387,8 @@ body {
 
 /* CONFIG */
 
+/* [style*="--USER__appearance"] can be used to increase specificity but performance hit */
+
 :root[style*="readium-dark-on"] {
   --RS__backgroundColor: #333333;
   --RS__textColor: #c1c1c1;
@@ -397,37 +399,59 @@ body {
   /* This can be customized but initial will re-use default value of the browser */
   --RS__selectionBackgroundColor: #b4d8fe;
   --RS__selectionTextColor: inherit;
-
-  --RS__maxLineLength: 40.01rem; /* Forcing a reflow in Blink/Webkit so that blend mode can work */
 }
 
 /* we don’t need to redeclare bg-color and color for :root since we will inherit and update from day/default mode */
 
-:root[style*="readium-dark-on"] body {
-  /* Should be transparent but Chrome bug https://bugs.chromium.org/p/chromium/issues/detail?id=711955&q=mix-blend-mode&colspec=ID%20Pri%20M%20Stars%20ReleaseBlock%20Component%20Status%20Owner%20Summary%20OS%20Modified */
+:root[style*="readium-dark-on"] *:not(a) {
+  color: inherit !important;
+  background-color: transparent !important;
+  border-color: currentColor !important;
+}
 
-  color: inherit;
-  background-color: var(--RS__backgroundColor);
+:root[style*="readium-dark-on"] svg text {
+  fill: currentColor !important;
+  stroke: none !important;
 }
 
 :root[style*="readium-dark-on"] a:link,
 :root[style*="readium-dark-on"] a:link * {
-  color: var(--RS__linkColor);
+  color: var(--RS__linkColor) !important;
 }
 
 :root[style*="readium-dark-on"] a:visited,
 :root[style*="readium-dark-on"] a:visited * {
-  color: var(--RS__visitedColor);
+  color: var(--RS__visitedColor) !important;
 }
 
-:root[style*="readium-dark-on"] svg,
-:root[style*="readium-dark-on"] img {
-  /* Make sure the proper bg-color is used for the blend mode */
-  background-color: transparent !important;
-  mix-blend-mode: multiply;
+:root[style*="readium-dark-on"] img[class*="gaiji"],
+:root[style*="readium-dark-on"] *[epub\:type~="titlepage"] img:only-child {
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
 }
 
-/* Readium CSS 
+/* Darken all images on user’s demand */
+
+:root[style*="readium-dark-on"][style*="readium-darken-on"] img {
+  -webkit-filter: brightness(80%);
+  filter: brightness(80%);
+}
+
+/* Invert all images on user’s demand */
+
+:root[style*="readium-dark-on"][style*="readium-invert-on"] img {
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
+}
+
+/* Darken and invert on user’s demand */
+
+:root[style*="readium-dark-on"][style*="readium-darken-on"][style*="readium-invert-on"] img {
+  -webkit-filter: brightness(80%) invert(100%);
+  filter: brightness(80%) invert(100%);
+}
+
+/* Readium CSS
    OS Accessibility Modes
 
    A stylesheet to deal with OS accessibility settings
@@ -495,6 +519,40 @@ body {
   }
 }
 
+@media screen and (-ms-high-contrast: white-on-black) {
+  :root[style*="readium-dark-on"] img[class*="gaiji"],
+  :root[style*="readium-dark-on"] *[epub\:type~="titlepage"] img:only-child {
+    -webkit-filter: none !important;
+    filter: none !important;
+  }
+  :root[style*="readium-dark-on"][style*="readium-invert-on"] img {
+    -webkit-filter: none !important;
+    filter: none !important;
+  }
+  :root[style*="readium-dark-on"][style*="readium-darken-on"][style*="readium-invert-on"] img {
+    -webkit-filter: brightness(80%);
+    filter: brightness(80%);
+  }
+}
+
+/* Will be true on recent versions of iOS and MacOS if inverted setting enabled by the user */
+
+@media screen and (inverted-colors) {
+  :root[style*="readium-dark-on"] img[class*="gaiji"],
+  :root[style*="readium-dark-on"] *[epub\:type~="titlepage"] img:only-child {
+    -webkit-filter: none !important;
+    filter: none !important;
+  }
+  :root[style*="readium-dark-on"][style*="readium-invert-on"] img {
+    -webkit-filter: none !important;
+    filter: none !important;
+  }
+  :root[style*="readium-dark-on"][style*="readium-darken-on"][style*="readium-invert-on"] img {
+    -webkit-filter: brightness(80%);
+    filter: brightness(80%);
+  }
+}
+
 @media screen and (monochrome) {
   /* Grayscale (Implemented in Safari, what about eInk?) */
   /* Must deal with anything color (contrast) so must be managed at the night/sepia/theme level :( */
@@ -504,7 +562,7 @@ body {
   /* If reduced motion is set on MacOS, in case we have animation/transition */
 }
 
-/* Readium CSS 
+/* Readium CSS
    Columns number pref
 
    A submodule managing columns number for user settings
@@ -542,7 +600,7 @@ body {
   }
 }
 
-/* Readium CSS 
+/* Readium CSS
    Page margins pref
 
    A submodule managing page margins for user settings
@@ -556,7 +614,7 @@ body {
   padding: 0 calc(var(--RS__pageGutter) * var(--USER__pageMargins)) !important;
 }
 
-/* Readium CSS 
+/* Readium CSS
    Custom colors pref
 
    A submodule managing custom colors for user settings
@@ -580,7 +638,7 @@ body {
   color: inherit !important;
 }
 
-/* Readium CSS 
+/* Readium CSS
    Text align pref
 
    A submodule managing text-align for user settings
@@ -617,7 +675,7 @@ body {
   text-align: right;
 }
 
-/* Readium CSS 
+/* Readium CSS
    Hyphenation pref
 
    A submodule managing hyphens for user settings
@@ -671,7 +729,7 @@ body {
   hyphens: inherit;
 }
 
-/* Readium CSS 
+/* Readium CSS
    Font Family pref
 
    A submodule managing font-family for user settings
@@ -707,7 +765,7 @@ body {
   font-family: inherit !important;
 }
 
-/* Readium CSS 
+/* Readium CSS
    A11y font pref
 
    A submodule managing a11y text normalization for user settings
@@ -774,7 +832,7 @@ body {
   vertical-align: baseline !important;
 }
 
-/* Readium CSS 
+/* Readium CSS
    Font size pref
 
    A submodule managing font-size for user settings
@@ -786,7 +844,7 @@ body {
   font-size: var(--USER__fontSize) !important;
 }
 
-/* Readium CSS 
+/* Readium CSS
    Line height pref
 
    A submodule managing line-height for user settings
@@ -805,7 +863,7 @@ body {
   line-height: inherit;
 }
 
-/* Readium CSS 
+/* Readium CSS
    Para spacing pref
 
    A submodule managing paragraphs’ top and bottom margins for user settings
@@ -818,7 +876,7 @@ body {
   margin-bottom: var(--USER__paraSpacing) !important;
 }
 
-/* Readium CSS 
+/* Readium CSS
    Para indent pref
 
    A submodule managing paragraphs’ text-indent for user settings
@@ -837,7 +895,7 @@ body {
   text-indent: 0 !important;
 }
 
-/* Readium CSS 
+/* Readium CSS
    Word spacing pref
 
    A submodule managing word-spacing for user settings
@@ -857,7 +915,7 @@ body {
   word-spacing: var(--USER__wordSpacing);
 }
 
-/* Readium CSS 
+/* Readium CSS
    Letter spacing pref
 
    A submodule managing letter-spacing for user settings
@@ -878,7 +936,7 @@ body {
   font-variant: none;
 }
 
-/* Readium CSS 
+/* Readium CSS
    Font size normalize
 
    A stylesheet to normalize font-size
@@ -937,7 +995,7 @@ body {
   font-size: 67.5% !important;
 }
 
-/* The following styles kick in if you define the typeScale variable in the DOM. 
+/* The following styles kick in if you define the typeScale variable in the DOM.
    No need to repeat declarations which don’t make use of the variable */
 
 :root[style*="readium-advanced-on"][style*="--USER__typeScale"] h1 {
