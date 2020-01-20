@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		03C3CC68222DBD8600A01731 /* R2Shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03C3CC67222DBD8600A01731 /* R2Shared.framework */; };
+		3A54C5CB23D5C336005FF3FE /* R2Navigator.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 3A54C5CA23D5C336005FF3FE /* R2Navigator.podspec */; };
 		CA0B3AC3222EE555006D9363 /* PDFNavigatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0B3AC2222EE555006D9363 /* PDFNavigatorViewController.swift */; };
 		CA26EF7E22803FE90011653E /* VisualNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA26EF7D22803FE90011653E /* VisualNavigator.swift */; };
 		CA479DC3226493570053445E /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA479DC2226493570053445E /* UIView.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		03C3CC67222DBD8600A01731 /* R2Shared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = R2Shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A54C5CA23D5C336005FF3FE /* R2Navigator.podspec */ = {isa = PBXFileReference; lastKnownFileType = file; path = R2Navigator.podspec; sourceTree = SOURCE_ROOT; };
 		CA0B3AC2222EE555006D9363 /* PDFNavigatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFNavigatorViewController.swift; sourceTree = "<group>"; };
 		CA26EF7D22803FE90011653E /* VisualNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualNavigator.swift; sourceTree = "<group>"; };
 		CA479DC2226493570053445E /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		CAD178B722B3B580004E6812 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3A54C5CA23D5C336005FF3FE /* R2Navigator.podspec */,
 				CAD178BC22B3B5B6004E6812 /* Localizable.strings */,
 			);
 			path = Resources;
@@ -266,6 +269,7 @@
 			files = (
 				CA94292122BCF97700305CDB /* Static in Resources */,
 				CAD178BA22B3B5B6004E6812 /* Localizable.strings in Resources */,
+				3A54C5CB23D5C336005FF3FE /* R2Navigator.podspec in Resources */,
 				CA94293022BD2D2F00305CDB /* Scripts in Resources */,
 				CA90372122D8C94C00D4C86F /* fxl-spread-one.html in Resources */,
 				CA90372222D8C94C00D4C86F /* fxl-spread-two.html in Resources */,
