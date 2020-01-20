@@ -345,7 +345,7 @@ body {
 
 :root[style*="readium-sepia-on"] {
   --RS__backgroundColor: #faf4e8;
-  --RS__textColor: #121212;
+  --RS__textColor: #564732;
 
   --RS__linkColor: #0000EE;
   --RS__visitedColor: #551A8B;
