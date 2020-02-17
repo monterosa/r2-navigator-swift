@@ -278,7 +278,7 @@ open class EPUBNavigatorViewController: UIViewController, VisualNavigator, Logga
         // Calculate total progression
         
         var totalProgression = try? publication.contentLengthInfo.pageProgressFor(currentDocumentIndex: (locator.locations.position ?? 1) - 1, progressInDocument: progression)
-        locator.locations.totalProgression = totalProgression?.totalEndProgress ?? 0
+        locator.locations.totalProgression = totalProgression?.totalProgress ?? 0
         
         return locator
     }
