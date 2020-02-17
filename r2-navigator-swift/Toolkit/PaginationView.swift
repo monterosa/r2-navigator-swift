@@ -161,6 +161,9 @@ final class PaginationView: UIView {
         
         currentIndex = index
         
+        // Goto location inside page view
+        currentView?.go(to: location)
+        
         // To make sure that the views the most likely to be visible are loaded first, we first load the current one, then the next ones and to finish the previous ones.
         loadView(at: index, location: location)
         let lastIndex = loadViews(upToPositionCount: preloadNextPositionCount, from: index, direction: .forward, at: beginning)
@@ -181,7 +184,7 @@ final class PaginationView: UIView {
         }
 
         setNeedsLayout()
-        delegate?.paginationViewDidUpdateViews(self)
+        //delegate?.paginationViewDidUpdateViews(self)
     }
 
     /// Loads the view at given index if it's not already loaded.
