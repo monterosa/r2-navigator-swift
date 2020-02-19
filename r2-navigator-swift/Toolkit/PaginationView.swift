@@ -184,7 +184,7 @@ final class PaginationView: UIView {
         }
 
         setNeedsLayout()
-        //delegate?.paginationViewDidUpdateViews(self)
+        delegate?.paginationViewDidUpdateViews(self)
     }
 
     /// Loads the view at given index if it's not already loaded.
