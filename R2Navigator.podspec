@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "R2Navigator"
-  s.version      = "1.2.10"
+  s.version      = "1.2.11"
   s.license      = "BSD 3-Clause License"
   s.summary      = "R2 Navigator"
   s.homepage     = "http://readium.github.io"
