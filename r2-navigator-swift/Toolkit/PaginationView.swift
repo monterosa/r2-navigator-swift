@@ -154,18 +154,24 @@ final class PaginationView: UIView {
         // Locations in a page view.
         let beginning = Locator(href: "#", type: "", locations: Locations(progression: 0))
         let end = Locator(href: "#", type: "", locations: Locations(progression: 1))
-        let location = location ?? beginning
         
-        // Automatically scrolls the previous document to the beginning or the end, to make sure that it's properly positioned to the consecutive page when going back to it.
-        currentView?.go(to: (currentIndex < index) ? end : beginning)
+        let possibleLocation =  (currentIndex < index) ? beginning : end
+        let currentLocation = location ?? possibleLocation
+        
+        // Automatically scrolls the previous and next document to the beginning or the end, to make sure that it's properly positioned to the consecutive page when going back to it.
+        currentIndex = index - 1
+        currentView?.go(to: end)
+        
+        currentIndex = index + 1
+        currentView?.go(to: beginning)
         
         currentIndex = index
         
         // Goto location inside page view
-        currentView?.go(to: location)
+        currentView?.go(to: currentLocation)
         
         // To make sure that the views the most likely to be visible are loaded first, we first load the current one, then the next ones and to finish the previous ones.
-        loadView(at: index, location: location)
+        loadView(at: index, location: currentLocation)
         let lastIndex = loadViews(upToPositionCount: preloadNextPositionCount, from: index, direction: .forward, at: beginning)
         let firstIndex = loadViews(upToPositionCount: preloadPreviousPositionCount, from: index, direction: .backward, at: end)
 
@@ -184,7 +190,10 @@ final class PaginationView: UIView {
         }
 
         setNeedsLayout()
-        delegate?.paginationViewDidUpdateViews(self)
+        
+        if location == nil {
+            delegate?.paginationViewDidUpdateViews(self)
+        }
     }
 
     /// Loads the view at given index if it's not already loaded.
